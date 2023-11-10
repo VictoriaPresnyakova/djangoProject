@@ -33,7 +33,7 @@ class Author(models.Model):
     """Авторы"""
     name = models.CharField('Автор', max_length=150)
     birth_year = models.PositiveSmallIntegerField('Год рождения', default=1900)
-    death_year = models.PositiveSmallIntegerField('Год смерти', null=True)
+    death_year = models.PositiveSmallIntegerField('Год смерти', blank=True, null=True)
     image = models.ImageField('Изображение автора', upload_to='characters/')
 
     def __str__(self):
@@ -48,14 +48,14 @@ class Book(models.Model):
     """Книги"""
     title = models.CharField('Книга', max_length=150)
     description = models.TextField('Описание')
-    year = models.PositiveSmallIntegerField('Год публикации', null=True)
-    text = models.FileField('Текст', upload_to='files/', null=True)
+    year = models.PositiveSmallIntegerField('Год публикации', blank=True, null=True)
+    text = models.FileField('Текст', upload_to='files/', blank=True, null=True)
     url = models.SlugField(max_length=130, unique=True)
     draft = models.BooleanField("Черновик", default=False)
     image = models.ImageField("Изображение", upload_to="books/")
     genres = models.ManyToManyField(Genre, verbose_name='Жанры')
-    characters = models.ManyToManyField(Character, verbose_name='Персонажи')
-    author = models.ForeignKey(Author, verbose_name='Автор', on_delete=models.SET_NULL, null=True)
+    characters = models.ManyToManyField(Character, verbose_name='Персонажи', blank=True, null=True)
+    author = models.ForeignKey(Author, verbose_name='Автор', on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
         return self.title
