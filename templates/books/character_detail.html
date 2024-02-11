@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Character Details {{ character.name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .character-details {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .character-details h2 {
+            margin-top: 0;
+        }
+        .character-details p {
+            margin-bottom: 10px;
+        }
+        .character-details img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="character-details">
+            <h2>{{ character.name }}</h2>
+            <p><strong>Описание:</strong> {{ character.description }}</p>
+            {% if character.image %}
+                <img src="{{ character.image.url }}" alt="{{ character.title }}">
+            {% endif %}
+
+        </div>
+    </div>
+</body>
+</html>

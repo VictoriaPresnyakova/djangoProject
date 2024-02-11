@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Genre(models.Model):
@@ -20,6 +21,10 @@ class Character(models.Model):
     name = models.CharField('Персонаж', max_length=150)
     description = models.TextField('Описание')
     image = models.ImageField('Изображение персонажа', upload_to='characters/')
+    url = models.SlugField(max_length=130, unique=True)
+
+    def get_absolute_url(self):
+        return reverse('character_info', kwargs={'slug': self.url})
 
     def __str__(self):
         return self.name
@@ -35,6 +40,8 @@ class Author(models.Model):
     birth_year = models.PositiveSmallIntegerField('Год рождения', default=1900)
     death_year = models.PositiveSmallIntegerField('Год смерти', blank=True, null=True)
     image = models.ImageField('Изображение автора', upload_to='characters/')
+    url = models.SlugField(max_length=130, unique=True)
+
 
     def __str__(self):
         return self.name
@@ -56,6 +63,9 @@ class Book(models.Model):
     genres = models.ManyToManyField(Genre, verbose_name='Жанры')
     characters = models.ManyToManyField(Character, verbose_name='Персонажи', blank=True, null=True)
     author = models.ForeignKey(Author, verbose_name='Автор', on_delete=models.SET_NULL, blank=True, null=True)
+
+    def get_absolute_url(self):
+        return reverse('book_info', kwargs={'slug': self.url})
 
     def __str__(self):
         return self.title

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Books</title>
+    <title>Characters of {{ book_title }}</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -61,18 +61,19 @@
 </head>
 <body>
     <div class="container">
-        {% for book in book_list %}
+        {% for character in character_list %}
             <div class="card">
+            <a href="{{ character.get_absolute_url }}">
+
                 <div class="book">
-                    <a href="{{ book.get_absolute_url }}">
-                        <h2>{{ book.title }}</h2>
-                        {% if book.image %}
-                            <img src="{{ book.image.url }}" alt="{{ book.title }}">
-                        {% endif %}
-                    </a>
-                    <p>{{ book.description }}</p>
+
+                    <h2>{{ character.name }}</h2>
+                    {% if character.image %}
+                        <img src="{{ character.image.url }}" alt="{{ character.title }}">
+                    {% endif %}
                     <!-- Здесь можно добавить другие поля книги, если они есть -->
                 </div>
+            </a>
             </div>
         {% endfor %}
     </div>
